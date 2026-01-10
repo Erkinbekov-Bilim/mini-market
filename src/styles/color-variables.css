@@ -1,0 +1,30 @@
+:root {
+  --color-bg-body: #e0e0e0;
+
+  --color-bg-tag-main: #fafafa;
+
+  --color-text: #ffffff;
+  --color-text-600: #757575;
+  --color-bg-text: #616161;
+  --color-border-text: #bdbdbd;
+  --color-bg-text-white: #ffffff;
+
+  --color-nav-bg: #757575;
+  --color-nav-link: #ffffff;
+
+  --color-bg-button: #757575;
+  --color-text-button: #eeeeee;
+  --color-border-button: #616161;
+
+  --color-bg-card: #e0e0e0;
+  --color-bg-card-white: #ffffff;
+  --color-card-border: #212121;
+
+  --color-bg-input: #ffffff;
+  --color-border-input: #212121;
+
+  --color-loader: #212121;
+
+  --color-scrollbar-track: #424242;
+  --color-scrollbar-thumb: #bdbdbd;
+}
