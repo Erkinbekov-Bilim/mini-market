@@ -1,0 +1,16 @@
+.cards::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.cards::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+.cards::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+}
+
+.cards::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb);
+}

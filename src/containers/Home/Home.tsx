@@ -9,6 +9,7 @@ import type IAsideNav from '../../types/aside/asideNav';
 import CardProduct from '../../components/Card/CardProduct';
 import Loading from '../../UI/Loading/Loading';
 import { Typography } from '@mui/material';
+import './Home.css';
 
 const Home = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -126,12 +127,16 @@ const Home = () => {
           {currentNavTitle || 'All'}
         </Typography>
         <Box
+          className="cards"
           sx={{
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
             gap: 3,
             flexWrap: 'wrap',
+            maxHeight: 'calc(var(--app-height) - 200px)',
+            overflowY: 'auto',
+            paddingRight: 2,
           }}
         >
           {cardPage}
