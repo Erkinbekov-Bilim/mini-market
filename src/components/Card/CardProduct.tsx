@@ -1,0 +1,48 @@
+import React from 'react';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+} from '@mui/material';
+import type IProduct from '../../types/products/product';
+
+interface ICardProduct {
+  product: IProduct;
+}
+
+const CardProduct: React.FC<ICardProduct> = ({ product }) => {
+  const noneImage: string = '/src/assets/placeholders/no-image.png';
+
+  return (
+    <Card
+      sx={{
+        maxWidth: 250,
+        width: 250,
+        border: '1px solid var(--color-card-border)',
+        boxShadow: 'none',
+        borderRadius: '0',
+      }}
+    >
+      <CardMedia
+        sx={{ height: 140, objectFit: 'contain' }}
+        image={product.image ? `${product.image}` : `${noneImage}`}
+        title={product.name}
+        component={'img'}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {product.name}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          {product.description}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          {product.price} KGS
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default CardProduct;
