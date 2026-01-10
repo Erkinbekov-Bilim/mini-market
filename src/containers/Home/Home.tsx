@@ -13,7 +13,8 @@ import { Typography } from '@mui/material';
 const Home = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [navigates, setNavigates] = useState<IAsideNav[]>([]);
-  const [currentNav, setCurrentNav] = useState<string>();
+  const [currentNav, setCurrentNav] = useState<string>('all');
+  const [currentNavTitle, setCurrentNavTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const getProductTypes = async (): Promise<void> => {
@@ -75,8 +76,9 @@ const Home = () => {
     void validateFetch(currentNav);
   }, [validateFetch, currentNav]);
 
-  const getCurrentNav = (navID: string) => {
-    setCurrentNav(navID);
+  const getCurrentNav = (navigate: IAsideNav) => {
+    setCurrentNav(navigate.id);
+    setCurrentNavTitle(navigate.title);
   };
 
   let cardPage: React.ReactNode = (
@@ -112,7 +114,7 @@ const Home = () => {
       </Grid>
       <Grid size={8}>
         <Typography component={'p'} variant="body2">
-          {currentNav || 'All'}
+          {currentNavTitle || 'All'}
         </Typography>
         <Box
           sx={{
