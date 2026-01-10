@@ -14,7 +14,7 @@ const EditProduct = () => {
     try {
       setLoading(true);
 
-      const response = await axiosApi.get<IProductMutation>(`/blog/${id}.json`);
+      const response = await axiosApi.get<IProductMutation>(`/products/${id}.json`);
       const postData = response.data;
       if (postData) setPost(postData);
     } catch (error) {
