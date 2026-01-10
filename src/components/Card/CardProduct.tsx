@@ -10,12 +10,14 @@ import {
 import type IProduct from '../../types/products/product';
 import CreateIcon from '@mui/icons-material/Create';
 import { NavLink } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface ICardProduct {
   product: IProduct;
+  deleteProduct?: (id: string) => void;
 }
 
-const CardProduct: React.FC<ICardProduct> = ({ product }) => {
+const CardProduct: React.FC<ICardProduct> = ({ product, deleteProduct }) => {
   const noneImage: string = '/src/assets/placeholders/no-image.png';
 
   return (
@@ -49,6 +51,11 @@ const CardProduct: React.FC<ICardProduct> = ({ product }) => {
         <IconButton component={NavLink} to={`products/${product.id}/edit`}>
           <CreateIcon />
         </IconButton>
+        {deleteProduct && (
+          <IconButton onClick={() => deleteProduct(product.id)}>
+            <DeleteIcon />
+          </IconButton>
+        )}
       </CardActions>
     </Card>
   );

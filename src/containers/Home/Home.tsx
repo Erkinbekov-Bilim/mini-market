@@ -17,6 +17,11 @@ const Home = () => {
   const [currentNavTitle, setCurrentNavTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const deleteProduct = useCallback(async (id: string) => {
+    await axiosApi.delete(`/products/${id}.json`);
+    void getProducts();
+  }, []);
+
   const getProductTypes = async (): Promise<void> => {
     const response = await axiosApi.get<IProductTypeApi | null>(
       'products-type.json'
@@ -38,7 +43,7 @@ const Home = () => {
     }
   };
 
-  const getProducts = async (type: string): Promise<void> => {
+  const getProducts = async (type?: string): Promise<void> => {
     let response = await axiosApi.get<IProductApi | null>(
       type === 'all'
         ? '/products.json'
@@ -85,7 +90,11 @@ const Home = () => {
     <>
       {products.length > 0 ? (
         products.map((product) => (
-          <CardProduct product={product} key={product.id} />
+          <CardProduct
+            product={product}
+            key={product.id}
+            deleteProduct={deleteProduct}
+          />
         ))
       ) : (
         <Typography
