@@ -19,7 +19,7 @@ const Home = () => {
 
   const deleteProduct = useCallback(async (id: string) => {
     await axiosApi.delete(`/products/${id}.json`);
-    void getProducts();
+    void getProducts(currentNav);
   }, []);
 
   const getProductTypes = async (): Promise<void> => {
@@ -43,7 +43,7 @@ const Home = () => {
     }
   };
 
-  const getProducts = async (type?: string): Promise<void> => {
+  const getProducts = async (type: string): Promise<void> => {
     let response = await axiosApi.get<IProductApi | null>(
       type === 'all'
         ? '/products.json'
