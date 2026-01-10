@@ -4,8 +4,12 @@ import {
   CardMedia,
   CardContent,
   Typography,
+  CardActions,
+  IconButton,
 } from '@mui/material';
 import type IProduct from '../../types/products/product';
+import CreateIcon from '@mui/icons-material/Create';
+import { NavLink } from 'react-router-dom';
 
 interface ICardProduct {
   product: IProduct;
@@ -41,6 +45,11 @@ const CardProduct: React.FC<ICardProduct> = ({ product }) => {
           {product.price} KGS
         </Typography>
       </CardContent>
+      <CardActions>
+        <IconButton component={NavLink} to={`products/${product.id}/edit`}>
+          <CreateIcon />
+        </IconButton>
+      </CardActions>
     </Card>
   );
 };

@@ -5,6 +5,7 @@ import Layout from './Layout/Layout';
 import Home from './containers/Home/Home';
 import Add from './containers/Add/Add';
 import NotFound from './containers/NotFound/NotFound';
+import EditProduct from './containers/EditProduct/EditProduct';
 
 const App = () => {
   return (
@@ -43,6 +44,15 @@ const App = () => {
             element={
               <Layout>
                 <Add />
+              </Layout>
+            }
+          />
+
+          <Route
+            path="/products/:idProduct/edit"
+            element={
+              <Layout>
+                <EditProduct />
               </Layout>
             }
           />
