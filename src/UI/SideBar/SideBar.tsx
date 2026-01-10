@@ -5,7 +5,7 @@ import SideBarNavItem from './SideBarNavItem/SideBarNavItem';
 
 interface ISideBarProps {
   navigates: IAsideNav[];
-  getCurrentNav: (navID: string) => void;
+  getCurrentNav: (navID: IAsideNav) => void;
 }
 
 const SideBar: React.FC<ISideBarProps> = ({ navigates, getCurrentNav }) => {

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 interface ISideBarNavItemProps {
   navigate: IAsideNav;
-  getCurrentNav: (navID: string) => void;
+  getCurrentNav: (navID: IAsideNav) => void;
 }
 
 const SideBarNavItem: React.FC<ISideBarNavItemProps> = ({
@@ -25,7 +25,7 @@ const SideBarNavItem: React.FC<ISideBarNavItemProps> = ({
 
   return (
     <MotionButton
-      onClick={() => getCurrentNav(navigate.id)}
+      onClick={() => getCurrentNav(navigate)}
       sx={{
         color: 'var(--color-nav-link)',
         letterSpacing: 'var(--letter-spacing-sm)',
