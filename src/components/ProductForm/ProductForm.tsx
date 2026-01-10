@@ -154,6 +154,7 @@ const ProductForm: React.FC<IProductFormProps> = ({
                 color="success"
                 sx={{ ...inputStyle }}
                 disabled={loading}
+                required
               />
             ))}
 
