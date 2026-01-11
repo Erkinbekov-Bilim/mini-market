@@ -10,6 +10,7 @@ import CardProduct from '../../components/Card/CardProduct';
 import Loading from '../../UI/Loading/Loading';
 import { Typography } from '@mui/material';
 import './Home.css';
+import { toast } from 'react-toastify';
 
 const Home = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -20,6 +21,7 @@ const Home = () => {
 
   const deleteProduct = useCallback(async (id: string) => {
     await axiosApi.delete(`/products/${id}.json`);
+    toast.error('Product deleted');
     void getProducts(currentNav);
   }, []);
 

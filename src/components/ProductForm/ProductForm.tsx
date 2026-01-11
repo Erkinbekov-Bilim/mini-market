@@ -11,6 +11,7 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import type IProductMutation from '../../types/products/productMutation';
 import axiosApi from '../../api/axiosApi';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface IProductFormProps {
   id?: string;
@@ -90,11 +91,13 @@ const ProductForm: React.FC<IProductFormProps> = ({
       setLoading(true);
       if (id) {
         await axiosApi.put(`/products/${id}.json`, form);
+        toast.success('Product updated');
       } else {
         await axiosApi.post('/products.json', {
           ...form,
           price: Number(form.price),
         });
+        toast.success('Product created');
       }
     } catch (error) {
       console.error(error);
