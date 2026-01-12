@@ -23,15 +23,20 @@ const CardProduct: React.FC<ICardProduct> = ({ product, deleteProduct }) => {
   return (
     <Card
       sx={{
-        maxWidth: 250,
-        width: 250,
+        maxWidth: 280,
+        width: 280,
         border: '1px solid var(--color-card-border)',
         boxShadow: 'none',
         borderRadius: '0',
       }}
     >
       <CardMedia
-        sx={{ height: 140, objectFit: 'contain' }}
+        sx={{
+          height: 280,
+          width: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
         image={product.image ? `${product.image}` : `${noneImage}`}
         title={product.name}
         component={'img'}
