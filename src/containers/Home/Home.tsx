@@ -91,7 +91,7 @@ const Home = () => {
 
   let cardPage: React.ReactNode = (
     <>
-      {products.length > 0 ? (
+      {products.length > 0 && !loading ? (
         products.map((product) => (
           <CardProduct
             product={product}
@@ -104,9 +104,18 @@ const Home = () => {
           component={'p'}
           variant="h4"
           sx={{
+            position: 'fixed',
+            height: '250px',
+            width: '300px',
             textAlign: 'center',
             textTransform: 'uppercase',
             letterSpacing: 'var(--letter-spacing-sm)',
+            backgroundColor: 'var(--color-bg-card)',
+            padding: '30px',
+            lineHeight: '2',
+            top: '50%',
+            left: '65%',
+            transform: 'translate(-50%, -50%)',
           }}
         >
           No products found
@@ -125,7 +134,20 @@ const Home = () => {
         <SideBar navigates={navigates} getCurrentNav={getCurrentNav}></SideBar>
       </Grid>
       <Grid size={8}>
-        <Typography component={'p'} variant="body2">
+        <Typography
+          component={'p'}
+          variant="body2"
+          sx={{
+            backgroundColor: 'var(--color-border-text)',
+            textTransform: 'uppercase',
+            fontSize: '1.25rem',
+            letterSpacing: 'var(--letter-spacing-sm)',
+            padding: '10px 30px',
+            marginBottom: '20px',
+            fontWeight: 'bold',
+            color: 'var(--color-text)',
+          }}
+        >
           {currentNavTitle || 'All'}
         </Typography>
         <Box
