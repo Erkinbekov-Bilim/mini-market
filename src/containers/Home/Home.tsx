@@ -20,9 +20,16 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const deleteProduct = useCallback(async (id: string) => {
-    await axiosApi.delete(`/products/${id}.json`);
-    toast.error('Product deleted');
-    void getProducts(currentNav);
+    try {
+      setLoading(true);
+      await axiosApi.delete(`/products/${id}.json`);
+      toast.error('Product deleted');
+      void getProducts(currentNav);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const getProductTypes = async (): Promise<void> => {
