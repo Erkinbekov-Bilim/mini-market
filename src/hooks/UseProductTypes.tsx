@@ -4,7 +4,7 @@ import axiosApi from '../api/axiosApi';
 import type IProductTypeApi from '../types/products/productTypeApi';
 
 const UseProductTypes = () => {
-  const [types, setTypes] = useState<IAsideNav[]>([]);
+  const [typesProduct, setTypesProduct] = useState<IAsideNav[]>([]);
 
   const getProductTypes = useCallback(async (): Promise<void> => {
     const response = await axiosApi.get<IProductTypeApi | null>(
@@ -23,7 +23,7 @@ const UseProductTypes = () => {
         }
       );
 
-      setTypes(rebuiltProductTypes);
+      setTypesProduct(rebuiltProductTypes);
     }
   }, []);
 
@@ -32,7 +32,7 @@ const UseProductTypes = () => {
   }, [getProductTypes]);
 
   return {
-    types,
+    typesProduct,
   };
 };
 
