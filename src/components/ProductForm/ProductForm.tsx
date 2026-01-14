@@ -4,7 +4,12 @@ import {
   type CSSObject,
   Button,
   Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import { motion, type MotionNodeOptions } from 'framer-motion';
 import React, { useState } from 'react';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
@@ -12,6 +17,8 @@ import type IProductMutation from '../../types/products/productMutation';
 import axiosApi from '../../api/axiosApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import UseProductTypes from '../../hooks/UseProductTypes';
+import type IAsideNav from '../../types/aside/asideNav';
 
 interface IProductFormProps {
   id?: string;
@@ -30,8 +37,7 @@ const ProductForm: React.FC<IProductFormProps> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [form, setForm] = useState<IProductMutation>(initialValueForm);
-
-  const inputs: string[] = Object.keys(form);
+  const { typesProduct } = UseProductTypes();
 
   const MotionButton = motion.create(Button);
   const navigate = useNavigate();
@@ -73,11 +79,14 @@ const ProductForm: React.FC<IProductFormProps> = ({
     };
   }
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>
+  ): void => {
     const { name, value } = event.target;
-
-    setForm((prevState) => ({
-      ...prevState,
+    setForm((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
@@ -118,24 +127,25 @@ const ProductForm: React.FC<IProductFormProps> = ({
 
   return (
     <>
-      {!id && (
-        <>
-          <Typography
-            textAlign={'center'}
-            sx={{
-              fontSize: '1rem',
-              letterSpacing: 'var(--letter-spacing-sm)',
-              border: '1px solid var(--color-border-text)',
-              color: 'var(--color-text-600)',
-              paddingY: '10px',
-              textTransform: 'uppercase',
-            }}
-          >
-            {!id && 'New Product!'}
-          </Typography>
-        </>
-      )}
       <Box sx={{ ...styleBox }}>
+        {!id && (
+          <>
+            <Typography
+              textAlign={'center'}
+              sx={{
+                fontSize: '1rem',
+                letterSpacing: 'var(--letter-spacing-sm)',
+                border: '1px solid var(--color-border-text)',
+                color: 'var(--color-text-600)',
+                paddingY: '5px',
+                marginBottom: '10px',
+                textTransform: 'uppercase',
+              }}
+            >
+              {!id && 'New Product!'}
+            </Typography>
+          </>
+        )}
         <form onSubmit={onSubmit}>
           <Box
             width={'100%'}
@@ -145,21 +155,81 @@ const ProductForm: React.FC<IProductFormProps> = ({
               gap: 4,
             }}
           >
-            {inputs.map((input: string) => (
-              <TextField
-                key={String(input)}
+            <TextField
+              onChange={onChange}
+              id="outlined-basic"
+              label="Name"
+              name="name"
+              type="text"
+              value={form.name}
+              variant="outlined"
+              color="success"
+              sx={{ ...inputStyle }}
+              disabled={loading}
+              required
+            />
+
+            <TextField
+              onChange={onChange}
+              id="outlined-basic"
+              label="Description"
+              name="description"
+              type="text"
+              value={form.description}
+              variant="outlined"
+              color="success"
+              sx={{ ...inputStyle }}
+              disabled={loading}
+            />
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Select Type</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Select Type"
+                name="type"
                 onChange={onChange}
-                id="outlined-basic"
-                label={String(input)}
-                name={String(input)}
-                value={form[input as keyof IProductMutation]}
-                variant="outlined"
-                color="success"
-                sx={{ ...inputStyle }}
-                disabled={loading}
+                defaultValue={form.type}
                 required
-              />
-            ))}
+              >
+                {typesProduct.map(
+                  (type: IAsideNav) =>
+                    type.id !== 'all' && (
+                      <MenuItem key={type.id} value={type.id}>
+                        {type.title}
+                      </MenuItem>
+                    )
+                )}
+              </Select>
+            </FormControl>
+
+            <TextField
+              onChange={onChange}
+              id="outlined-basic"
+              label="Image"
+              name="image"
+              type="text"
+              value={form.image}
+              variant="outlined"
+              color="success"
+              sx={{ ...inputStyle }}
+              disabled={loading}
+            />
+
+            <TextField
+              onChange={onChange}
+              id="outlined-basic"
+              label="Price"
+              name="price"
+              type="number"
+              value={form.price}
+              variant="outlined"
+              color="success"
+              sx={{ ...inputStyle }}
+              disabled={loading}
+              required
+            />
 
             <MotionButton
               fullWidth
