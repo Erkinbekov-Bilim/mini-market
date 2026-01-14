@@ -4,17 +4,17 @@ import axiosApi from '../../api/axiosApi';
 import type IProductApi from '../../types/products/productApi';
 import type IProduct from '../../types/products/product';
 import SideBar from '../../UI/SideBar/SideBar';
-import type IProductTypeApi from '../../types/products/productTypeApi';
 import type IAsideNav from '../../types/aside/asideNav';
 import CardProduct from '../../components/Card/CardProduct';
 import Loading from '../../UI/Loading/Loading';
 import { Typography } from '@mui/material';
 import './Home.css';
 import { toast } from 'react-toastify';
+import UseProductTypes from '../../hooks/UseProductTypes';
 
 const Home = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [navigates, setNavigates] = useState<IAsideNav[]>([]);
+  const { typesProduct } = UseProductTypes();
   const [currentNav, setCurrentNav] = useState<string>('all');
   const [currentNavTitle, setCurrentNavTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,26 +32,6 @@ const Home = () => {
     }
   }, []);
 
-  const getProductTypes = async (): Promise<void> => {
-    const response = await axiosApi.get<IProductTypeApi | null>(
-      'products-type.json'
-    );
-    const productTypesData = response.data;
-
-    if (productTypesData) {
-      const productTypeDataIDS: string[] = Object.keys(productTypesData);
-
-      const rebuiltProductTypes: IAsideNav[] = productTypeDataIDS.map(
-        (id: string) => {
-          return {
-            ...productTypesData[id],
-          };
-        }
-      );
-
-      setNavigates(rebuiltProductTypes);
-    }
-  };
 
   const getProducts = async (type: string): Promise<void> => {
     let response = await axiosApi.get<IProductApi | null>(
@@ -79,7 +59,6 @@ const Home = () => {
     try {
       setLoading(true);
       void getProducts(type);
-      void getProductTypes();
     } catch (error) {
       console.error(error);
     } finally {
@@ -138,7 +117,7 @@ const Home = () => {
   return (
     <Grid container spacing={3}>
       <Grid size={4}>
-        <SideBar navigates={navigates} getCurrentNav={getCurrentNav}></SideBar>
+        <SideBar navigates={typesProduct} getCurrentNav={getCurrentNav}></SideBar>
       </Grid>
       <Grid size={8}>
         <Typography
