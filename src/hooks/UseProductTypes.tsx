@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type IAsideNav from '../types/aside/asideNav';
 import axiosApi from '../api/axiosApi';
 import type IProductTypeApi from '../types/products/productTypeApi';
@@ -6,7 +6,7 @@ import type IProductTypeApi from '../types/products/productTypeApi';
 const UseProductTypes = () => {
   const [types, setTypes] = useState<IAsideNav[]>([]);
 
-  const getProductTypes = async (): Promise<void> => {
+  const getProductTypes = useCallback(async (): Promise<void> => {
     const response = await axiosApi.get<IProductTypeApi | null>(
       'products-type.json'
     );
@@ -25,7 +25,7 @@ const UseProductTypes = () => {
 
       setTypes(rebuiltProductTypes);
     }
-  };
+  }, []);
 
   useEffect(() => {
     void getProductTypes();
